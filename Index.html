@@ -131,3 +131,32 @@ body {
 }
 
 </style>
+<script>
+  document.querySelector('.register-btn').addEventListener('click', function() {
+    // Ambil nilai dari formulir
+    const namaLengkap = document.getElementById('fullname').value;
+    const email = document.getElementById('email').value;
+    const username = document.getElementById('username').value;
+    const kataSandi = document.getElementById('password').value;
+
+    // Validasi input
+    if (!namaLengkap || !email || !username || !kataSandi) {
+        alert('Semua kolom harus diisi!');
+        return;
+    }
+
+    // Cek apakah username sudah ada
+    let pengguna = JSON.parse(localStorage.getItem('pengguna')) || [];
+    if (pengguna.some(user => user.username === username)) {
+        alert('Username sudah terdaftar! Gunakan username lain.');
+        return;
+    }
+
+    // Simpan data pengguna
+    pengguna.push({ namaLengkap, email, username, kataSandi });
+    localStorage.setItem('pengguna', JSON.stringify(pengguna));
+
+    alert('Registrasi berhasil! Silakan login.');
+    window.location.href = 'Login Quran Apps.html';
+});
+</script>
